@@ -18,6 +18,7 @@ from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
     path('expense/', include('expense.urls')),
     path('admin/', admin.site.urls),
     re_path(r'^.*$', TemplateView.as_view(template_name='index.html'), name='index')

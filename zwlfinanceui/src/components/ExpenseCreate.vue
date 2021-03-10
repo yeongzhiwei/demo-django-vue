@@ -34,7 +34,7 @@
 
 <script>
 export default {
-    name: 'CreateExpense',
+    name: 'ExpenseCreate',
     data: function() {
         return {
             timestamp: null,
@@ -59,7 +59,7 @@ export default {
             const axios = require('axios');
             axios
                 .post('/expense/api/expenses/', data)
-                .then(this.$emit('expenseCreated'))
+                .then(this.$emit('expense-created'))
                 .catch(error => {
                     if (error.response.status == 403) {
                         this.$store.dispatch('logout');

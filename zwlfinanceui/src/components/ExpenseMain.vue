@@ -2,23 +2,23 @@
     <div class ="welcome">
         <h1>ZWL - Expense</h1>
 
-        <CreateExpense v-on:expenseCreated="refreshExpenses" />
+        <ExpenseCreate v-on:expense-created="refreshExpenses" />
         <ExpenseList v-bind:expenses="expenses" />
-        <Pagination v-bind:hasPrevious="hasPrevious" v-bind:hasNext="hasNext" v-bind:currentPage="currentPage" v-on:goto="changePage" />
+        <BasePagination v-bind:hasPrevious="hasPrevious" v-bind:hasNext="hasNext" v-bind:currentPage="currentPage" v-on:goto="changePage" />
     </div>
 </template>
 
 <script>
+import ExpenseCreate from './ExpenseCreate.vue'
 import ExpenseList from './ExpenseList.vue'
-import CreateExpense from './CreateExpense.vue'
-import Pagination from './Pagination.vue'
+import BasePagination from './BasePagination.vue'
 
 export default {
     name: 'Expense',
     components: {
-        CreateExpense,
+        ExpenseCreate,
         ExpenseList,
-        Pagination,
+        BasePagination,
     },
     data: function() {
         return {

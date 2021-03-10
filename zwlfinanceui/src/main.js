@@ -4,9 +4,9 @@ import VueRouter from 'vue-router'
 
 import App from './App.vue'
 import Welcome from './components/Welcome.vue'
-import Expense from './components/Expense.vue'
-import Login from './components/Login.vue'
-import Logout from './components/Logout.vue'
+import ExpenseMain from './components/ExpenseMain.vue'
+import AuthLogin from './components/AuthLogin.vue'
+import AuthLogout from './components/AuthLogout.vue'
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
@@ -42,9 +42,9 @@ const router = new VueRouter({
   base: '/vue',
   routes: [
     { path: '/', name: 'welcome', components: { public: Welcome }},
-    { path: '/expense', name: 'expense', components: { content: Expense }},
-    { path: '/login', name: 'login', components: { public: Login }},
-    { path: '/logout', name: 'logout', components: { public: Logout }},
+    { path: '/expense', name: 'expense', components: { content: ExpenseMain }},
+    { path: '/login', name: 'login', components: { public: AuthLogin }},
+    { path: '/logout', name: 'logout', components: { public: AuthLogout }},
   ]
 })
 

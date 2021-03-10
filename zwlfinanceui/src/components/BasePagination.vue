@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: 'Pagination',
+    name: 'BasePagination',
     props: {
         hasPrevious: Boolean,
         hasNext: Boolean,

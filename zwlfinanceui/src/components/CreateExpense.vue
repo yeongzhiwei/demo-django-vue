@@ -59,7 +59,12 @@ export default {
             const axios = require('axios');
             axios
                 .post('/expense/api/expenses/', data)
-                .then(this.$emit('expenseCreated'));
+                .then(this.$emit('expenseCreated'))
+                .catch(error => {
+                    if (error.response.status == 403) {
+                        this.$store.dispatch('logout');
+                    }
+                })
         }
     }
 }

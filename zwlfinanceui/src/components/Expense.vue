@@ -34,7 +34,6 @@ export default {
             this.refreshExpenses();
         },
         refreshExpenses: function() {
-            console.log('refreshing...');
             const axios = require('axios');
             axios
                 .get(`/expense/api/expenses/?format=json&page=${this.currentPage}`)
@@ -42,6 +41,11 @@ export default {
                     this.expenses = response.data.results;
                     this.hasPrevious = response.data.previous !== null;
                     this.hasNext = response.data.next !== null;
+                })
+                .catch(error => {
+                    if (error.response.status == 403) {
+                        this.$store.dispatch("logout");
+                    }
                 })
         }
     },

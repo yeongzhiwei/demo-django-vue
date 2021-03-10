@@ -16,7 +16,7 @@
                 <th>{{ expense.amount}} </th>
                 <th>{{ expense.payee}} </th>
                 <th>{{ expense.description}} </th>
-                <th>{{ expense.tags}} </th>
+                <th>{{ getTagNames(expense.tags) }} </th>
                 <th>{{ expense.status}} </th>
             </tr>
         </table>
@@ -29,6 +29,11 @@ export default {
     props: {
         expenses: Array
     },
+    methods: {
+        getTagNames: function(tags) {
+            return tags.map(tag => tag.name).join(', ')
+        }
+    }
 }
 </script>
 

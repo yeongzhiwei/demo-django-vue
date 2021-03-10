@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Welcome from './components/Welcome.vue'
 import ExpenseMain from './components/ExpenseMain.vue'
+import ExpenseDetail from './components/ExpenseDetail.vue'
 import AuthLogin from './components/AuthLogin.vue'
 import AuthLogout from './components/AuthLogout.vue'
 
@@ -43,6 +44,7 @@ const router = new VueRouter({
   routes: [
     { path: '/', name: 'welcome', components: { public: Welcome }},
     { path: '/expense', name: 'expense', components: { content: ExpenseMain }},
+    { path: '/expense/:id', name: 'expense-detail', components: { content: ExpenseDetail }},
     { path: '/login', name: 'login', components: { public: AuthLogin }},
     { path: '/logout', name: 'logout', components: { public: AuthLogout }},
   ]

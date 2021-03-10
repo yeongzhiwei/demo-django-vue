@@ -10,6 +10,7 @@
                 <th>Description</th>
                 <th>Tags</th>
                 <th>Status</th>
+                <th>Detail</th>
             </tr>
             <tr v-for="expense in expenses" :key="expense.id">
                 <th>{{ expense.timestamp}} </th>
@@ -18,6 +19,7 @@
                 <th>{{ expense.description}} </th>
                 <th>{{ getTagNames(expense.tags) }} </th>
                 <th>{{ expense.status}} </th>
+                <th><a href="#" v-on:click.stop="$emit('click-id', expense.id)">link</a></th>
             </tr>
         </table>
     </div>

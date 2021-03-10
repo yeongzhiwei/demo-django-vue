@@ -3,14 +3,16 @@
         <h1>ZWL - Expense</h1>
 
         <ExpenseCreate v-on:expense-created="refreshExpenses" />
-        <ExpenseList v-bind:expenses="expenses" />
+        <ExpenseList v-bind:expenses="expenses" v-on:click-id="setCurrentExpenseId" />
         <BasePagination v-bind:hasPrevious="hasPrevious" v-bind:hasNext="hasNext" v-bind:currentPage="currentPage" v-on:goto="changePage" />
+        <ExpenseDetail v-bind:expense="getCurrentExpense" />
     </div>
 </template>
 
 <script>
 import ExpenseCreate from './ExpenseCreate.vue'
 import ExpenseList from './ExpenseList.vue'
+import ExpenseDetail from './ExpenseDetail.vue'
 import BasePagination from './BasePagination.vue'
 
 export default {
@@ -18,6 +20,7 @@ export default {
     components: {
         ExpenseCreate,
         ExpenseList,
+        ExpenseDetail,
         BasePagination,
     },
     data: function() {
@@ -26,7 +29,13 @@ export default {
             currentPage: 1,
             hasPrevious: false,
             hasNext: false,
+            currentExpenseId: null
         } 
+    },
+    computed: {
+        getCurrentExpense: function() {
+            return this.expenses.find(expense => expense.id === this.currentExpenseId)
+        }
     },
     methods: {
         changePage: function(newPage) {
@@ -47,7 +56,10 @@ export default {
                         this.$store.dispatch("logout");
                     }
                 })
-        }
+        },
+        setCurrentExpenseId: function(id) {
+            this.currentExpenseId = id;
+        },
     },
     mounted: function() {
         this.refreshExpenses();

@@ -61,7 +61,7 @@ const router = new VueRouter({
       children: [
         { path: 'create', component: ExpenseCreate },
         { path: 'list', component: ExpenseList },
-        { path: 'detail/:id', component: ExpenseDetail },
+        { path: 'detail/:id', component: ExpenseDetail, props: true },
       ]},
     { path: '/login', name: 'login', components: { public: AuthLogin }},
     { path: '/logout', name: 'logout', components: { public: AuthLogout }},

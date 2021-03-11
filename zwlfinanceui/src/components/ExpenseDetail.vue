@@ -38,11 +38,12 @@
 export default {
     name: 'ExpenseDetail',
     props: {
-        expenses: Array
+        expenses: Array,
+        id: String
     },
     computed: {
         expense: function() {
-            return this.expenses.find(expense => expense.id == this.$route.params.id);
+            return this.expenses.find(expense => expense.id == this.id);
         }
     }
 }

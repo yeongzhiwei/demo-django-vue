@@ -3,7 +3,7 @@
         <h1>ZWL - Expense</h1>
         
         <router-view 
-            @expense-created="refreshExpenses"
+            @expense-created="expenseCreated"
             @change-page="changePage"
             :expenses="formattedExpenses"
             :currentPage="currentPage"
@@ -39,6 +39,10 @@ export default {
         changePage: function(newPage) {
             this.currentPage = newPage;
             this.refreshExpenses();
+        },
+        expenseCreated: function() {
+            this.refreshExpenses();
+            this.$router.push('/expense/list');
         },
         refreshExpenses: function() {
             const axios = require('axios');

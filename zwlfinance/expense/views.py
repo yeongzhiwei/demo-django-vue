@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
@@ -10,13 +11,10 @@ from expense.models import Expense, Tag
 from expense.serializers import ExpenseSerializer, TagSerializer
 
 
-@login_required
+@ensure_csrf_cookie
 @api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'tags': reverse('tag-list', request=request, format=format),
-        'expenses': reverse('expense-list', request=request, format=format)
-    }) 
+def set_cookie(request):
+    return Response()
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):

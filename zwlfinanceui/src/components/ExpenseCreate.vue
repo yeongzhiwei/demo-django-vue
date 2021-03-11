@@ -47,6 +47,8 @@ export default {
     },
     methods: {
         onSubmit: function() {
+            const Cookies = require('js-cookie');
+
             const data = {
                 timestamp: this.timestamp,
                 amount: this.amount,
@@ -58,7 +60,9 @@ export default {
 
             const axios = require('axios');
             axios
-                .post('/expense/api/expenses/', data)
+                .post('/expense/api/expenses/', data, {headers: {
+                    'X-CSRFTOKEN': Cookies.get('csrftoken')
+                }})
                 .then(this.$emit('expense-created'))
                 .catch(error => {
                     if (error.response.status == 403) {
@@ -66,6 +70,10 @@ export default {
                     }
                 })
         }
+    },
+    mounted: function() {
+        const axios = require('axios');
+        axios.get('/expense/api/set-csrf');
     }
 }
 </script>

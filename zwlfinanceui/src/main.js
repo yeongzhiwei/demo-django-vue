@@ -10,6 +10,7 @@ import ExpenseList from './components/ExpenseList.vue'
 import ExpenseDetail from './components/ExpenseDetail.vue'
 import AuthLogin from './components/AuthLogin.vue'
 import AuthLogout from './components/AuthLogout.vue'
+import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
@@ -73,6 +74,8 @@ new Vue({
   render: h => h(App),
   store,
   router,
+  vuetify,
+
   beforeCreate: function() {
     this.$store.commit('initIsLoggedIn');
   }

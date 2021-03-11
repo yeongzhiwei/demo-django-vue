@@ -1,45 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+  <v-app>
+    <v-app-bar app color="primary" dark>  
+      <v-img
+        alt="Vuetify Name"
+        class="shrink mt-1 hidden-sm-and-down"
+        contain
+        min-width="100"
+        src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+        width="100"
+      />
 
-    <div id="topnavbar">
-      <router-link to="/">Home</router-link>&nbsp;
+      <v-spacer></v-spacer>
 
-      <span v-if="this.$store.state.isLoggedIn">
-        <router-link to="/expense/list">Expense</router-link>&nbsp;
-        (<router-link to="/expense/create">Create</router-link>)&nbsp;
-        <a href="/accounts/logout/">Logout</a>
-      </span>
-      
-      <span v-else>
-        <router-link to="/login" v-slot="{ href }" custom>
-          <a :href="'/accounts/login/?next=' + href">Login</a>
-        </router-link>
-      </span>
-    </div>
-    
-    <div class="content">
+      <v-btn to="/">Home</v-btn>
+
+      <template v-if="this.$store.state.isLoggedIn">
+        <v-btn to="/expense/list" class="mx-2">Expense</v-btn>
+        <v-btn to="/expense/create" class="mx-2">Create Expense</v-btn>
+        <v-btn href="/accounts/logout/">Logout</v-btn>
+      </template>
+
+      <template v-else>
+        <v-btn href="/accounts/login/?next=/vue/login">Login</v-btn>
+      </template>
+    </v-app-bar>
+
+    <v-main>
       <router-view name="public"></router-view>
-      <router-view name="content" v-if="this.$store.state.isLoggedIn"></router-view>
-    </div>
-    
-  </div>
+      <router-view
+        name="content"
+        v-if="this.$store.state.isLoggedIn"
+      ></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-}
+  name: "App",
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

@@ -20,5 +20,9 @@ module.exports = {
             .hotOnly(true)
             .headers({"Access-Control-Allow-Origin": "*"})
             .writeToDisk(filePath => filePath.endsWith('index.html'));
-    }
+    },
+
+    transpileDependencies: [
+      'vuetify'
+    ]
 }

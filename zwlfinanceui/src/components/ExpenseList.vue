@@ -17,23 +17,37 @@
                 <th>{{ expense.amount}} </th>
                 <th>{{ expense.payee}} </th>
                 <th>{{ expense.description}} </th>
-                <th>{{ getTagNames(expense.tags) }} </th>
+                <th>{{ expense.tagNames }} </th>
                 <th>{{ expense.status}} </th>
-                <th><a href="#" v-on:click.stop="$emit('click-id', expense.id)">link</a></th>
+                <th><router-link :to='"/expense/detail/" + expense.id'>link</router-link></th>
             </tr>
         </table>
+        
+        <BasePagination 
+            @goto="changePage"
+            :hasPrevious="hasPrevious"
+            :hasNext="hasNext"
+            :currentPage="currentPage" />
     </div>
 </template>
 
 <script>
+import BasePagination from './BasePagination.vue'
+
 export default {
     name: 'ExpenseList',
+    components: {
+        BasePagination,
+    },
     props: {
-        expenses: Array
+        expenses: Array,
+        hasPrevious: Boolean,
+        hasNext: Boolean,
+        currentPage: Number
     },
     methods: {
-        getTagNames: function(tags) {
-            return tags.map(tag => tag.name).join(', ')
+        changePage: function(newPage) {
+            this.$emit('change-page', newPage);
         }
     }
 }

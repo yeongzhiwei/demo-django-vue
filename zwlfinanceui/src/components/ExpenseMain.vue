@@ -1,41 +1,39 @@
 <template>
     <div class ="welcome">
         <h1>ZWL - Expense</h1>
-
-        <ExpenseCreate v-on:expense-created="refreshExpenses" />
-        <ExpenseList v-bind:expenses="expenses" v-on:click-id="setCurrentExpenseId" />
-        <BasePagination v-bind:hasPrevious="hasPrevious" v-bind:hasNext="hasNext" v-bind:currentPage="currentPage" v-on:goto="changePage" />
-        <ExpenseDetail v-bind:expense="getCurrentExpense" />
+        
+        <router-view 
+            @expense-created="refreshExpenses"
+            @change-page="changePage"
+            :expenses="formattedExpenses"
+            :currentPage="currentPage"
+            :hasPrevious="hasPrevious"
+            :hasNext="hasNext">
+        </router-view>
     </div>
 </template>
 
 <script>
-import ExpenseCreate from './ExpenseCreate.vue'
-import ExpenseList from './ExpenseList.vue'
-import ExpenseDetail from './ExpenseDetail.vue'
-import BasePagination from './BasePagination.vue'
-
 export default {
     name: 'Expense',
-    components: {
-        ExpenseCreate,
-        ExpenseList,
-        ExpenseDetail,
-        BasePagination,
-    },
     data: function() {
         return {
             expenses: null,
             currentPage: 1,
             hasPrevious: false,
             hasNext: false,
-            currentExpenseId: null
         } 
     },
     computed: {
-        getCurrentExpense: function() {
-            return this.expenses.find(expense => expense.id === this.currentExpenseId)
-        }
+        formattedExpenses: function() {
+            if (this.expenses) {
+                return this.expenses.map(expense => {
+                    expense.tagNames = expense.tags.map(tag => tag.name).join(', ');
+                    return expense;
+                })
+            }
+            return null;
+        },
     },
     methods: {
         changePage: function(newPage) {
@@ -56,9 +54,6 @@ export default {
                         this.$store.dispatch("logout");
                     }
                 })
-        },
-        setCurrentExpenseId: function(id) {
-            this.currentExpenseId = id;
         },
     },
     mounted: function() {

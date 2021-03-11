@@ -6,7 +6,7 @@
       <router-link to="/">Home</router-link>&nbsp;
 
       <span v-if="this.$store.state.isLoggedIn">
-        <router-link to="/expense">Expense</router-link>&nbsp;
+        <router-link to="/expense/list">Expense</router-link>&nbsp;
         <a href="/accounts/logout/">Logout</a>
       </span>
       

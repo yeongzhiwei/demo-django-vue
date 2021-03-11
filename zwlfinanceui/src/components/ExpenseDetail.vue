@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <th>Tags</th>
-                <td>{{ tagNames }}</td>
+                <td>{{ expense.tagNames }}</td>
             </tr>
             <tr>
                 <th>Status</th>
@@ -38,11 +38,11 @@
 export default {
     name: 'ExpenseDetail',
     props: {
-        expense: Object
+        expenses: Array
     },
     computed: {
-        tagNames: function() {
-            return this.expense.tags.map(tag => tag.name).join(', ')
+        expense: function() {
+            return this.expenses.find(expense => expense.id == this.$route.params.id);
         }
     }
 }

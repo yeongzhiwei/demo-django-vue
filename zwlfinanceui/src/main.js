@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Welcome from './components/Welcome.vue'
 import ExpenseMain from './components/ExpenseMain.vue'
+import ExpenseCreate from './components/ExpenseCreate.vue'
+import ExpenseList from './components/ExpenseList.vue'
 import ExpenseDetail from './components/ExpenseDetail.vue'
 import AuthLogin from './components/AuthLogin.vue'
 import AuthLogout from './components/AuthLogout.vue'
@@ -15,7 +17,11 @@ Vue.use(VueRouter)
 
 const store = new Vuex.Store({
   state: {
-    isLoggedIn: false
+    isLoggedIn: false,
+    expenses: null,
+    expenseCurrentPage: 1,
+    expenseHasPrevious: false,
+    expenseHasNext: false,
   },
   mutations: {
     initIsLoggedIn(state) {
@@ -26,6 +32,11 @@ const store = new Vuex.Store({
     setLoggedIn(state, isLoggedIn) {
       localStorage.setItem('isLoggedIn', isLoggedIn);
       state.isLoggedIn = isLoggedIn;
+    },
+    setExpenses(state, expenseData) {
+      state.expenses = expenseData.data.results;
+      state.hasPrevious = expenseData.data.previous !== null;
+      state.hasNext = expenseData.data.next !== null;
     }
   },
   actions: {
@@ -34,6 +45,9 @@ const store = new Vuex.Store({
     },
     logout(context) {
       context.commit('setLoggedIn', false);
+    },
+    setExpenses(context, expenseData) {
+      context.commit('setExpenses', expenseData);
     }
   }
 })
@@ -43,8 +57,12 @@ const router = new VueRouter({
   base: '/vue',
   routes: [
     { path: '/', name: 'welcome', components: { public: Welcome }},
-    { path: '/expense', name: 'expense', components: { content: ExpenseMain }},
-    { path: '/expense/:id', name: 'expense-detail', components: { content: ExpenseDetail }},
+    { path: '/expense', name: 'expense', components: { content: ExpenseMain },
+      children: [
+        { path: 'create', component: ExpenseCreate },
+        { path: 'list', component: ExpenseList },
+        { path: 'detail/:id', component: ExpenseDetail },
+      ]},
     { path: '/login', name: 'login', components: { public: AuthLogin }},
     { path: '/logout', name: 'logout', components: { public: AuthLogout }},
   ]
